@@ -1,11 +1,15 @@
-console.log("LIRI node-bot is locked and loaded");
 // console.log(process.argv);
+console.log("LIRI node-bot is locked and loaded");
 var argument = process.argv[2];
-var uri = process.argv[2];     
+// var uri = process.argv[3]; 
+
+var request = require('request');
+var fs = require('fs');
 var spotify = require('spotify');
-//Twitter variables
+console.log(spotify);
 var Twitter = require('twitter');
 var keys = require('./keys.js');
+// var ombd = require('./omdb.js');
 var twit = new Twitter(keys);
 var params = { 
   "screen_name": "vinjporta",
@@ -22,15 +26,25 @@ if(argument === "my-tweets"){
   };
 }
 // Spotify bot begins 
- spotify.search({ type: 'track', q: uri }, function(err, data) {
- 
-    // Do something with 'data' 
-    console.log(data);
-});
+// else if(argument === "spotify-this-song") {
+//     var params = {
+//         'type': 'track',
+//         'q': uri   
+//     }
+//     spotify.search
 
-// else if(argument === "movie-this") {
+// }
 
-// }else if(argument === "do-what-it-says") {
+else if(argument === "movie-this") {
+    var movieTitle = process.argv[3];
+    request('http://www.omdbapi.com/?t=The+Notebook&y=&plot=short&r=json', function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log(body); // Show the HTML for the Google homepage. 
+      }
+    })
+}
+
+    // else if(argument === "do-what-it-says") {
 
 // }
 

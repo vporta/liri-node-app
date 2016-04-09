@@ -4,6 +4,7 @@
   "description": "Language Interpretation and Recognition Interface",
   "main": "keys.js",
   "dependencies": {
+    "file-system": "^2.2.1",
     "request": "^2.70.0",
     "spotify": "^0.3.0",
     "twitter": "^1.2.5"
