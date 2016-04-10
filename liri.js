@@ -1,16 +1,12 @@
-// console.log(process.argv);
 console.log("LIRI node-bot is locked and loaded");
 var argument = process.argv[2];
-// var uri = process.argv[3]; 
-
 var request = require('request');
 var fs = require('fs');
 var spotify = require('spotify');
-// console.log(spotify);
 var Twitter = require('twitter');
 var keys = require('./keys.js');
-// var ombd = require('./omdb.js');
 var twit = new Twitter(keys);
+
 var params = { 
   "screen_name": "vinjporta",
   "count": 20
@@ -24,34 +20,45 @@ if(argument === "my-tweets"){
       console.log(tweets[i].created_at); 
     }
   };
-}else if(argument === "movie-this") {
+}if(argument === "movie-this") {
     console.log(process.argv);
     var movieTitle = process.argv[3];
-    //add it into url t=
-    request('http://www.omdbapi.com/?t=The+Notebook&y=&plot=short&r=json', function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        console.log(body.id); // Show the HTML for the Google homepage. 
-      }
+    request("http://www.omdbapi.com/?t=" + movieTitle + "&y=&plot=short&r=json&tomatoes=true",function (error, response, body) {
+        
+        if (!error && response.statusCode == 200) {
+        console.log(body);  
+        }else {
+            request("http://www.omdbapi.com/?t=mr+nobody+&y=&plot=short&r=json&tomatoes=true",function(error, response,body){
+                console.log(body);
+            })
+        }
     })
 }
 // Spotify bot begins 
-else if(argument === "spotify-this-song") {
+if(argument === "spotify-this-song") {
     var songTitle = process.argv[3];
-    //add it into query
     spotify.search({ type: 'track', query: songTitle }, function(err, data) {
         if ( err ) {
             console.log('Error occurred: ' + err);
             return;
         }
-        // Do something with 'data' 
         var data = data.tracks.items;
         for(var i =0; i < data.length; i++){
-
-        console.log(data.items[i]);
+            
+            console.log(data[i].name); //song track name
+            console.log(data[i].album.href); //url 
+            console.log(data[i].album.name); //album name
+            console.log(data[i].preview_url); //preview link to the song
+        
+            for(var j =0; j < data[i].artists.length; j++) {
+                console.log(data[i].artists[j].name); //artist's name
+            }
         }
     });
-
 }
+                
+
+
 
     // else if(argument === "do-what-it-says") {
 
