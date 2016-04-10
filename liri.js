@@ -6,6 +6,8 @@ var Twitter = require('twitter');
 var keys = require('./keys.js');
 var twit = new Twitter(keys);
 var argument = process.argv[2];
+var value = process.argv[3];
+var dataText = process.argv[4];
 // Twitter parameters
 var params = { 
   "screen_name": "vinjporta",
@@ -21,6 +23,7 @@ if(argument === "my-tweets"){
       console.log(tweets[i].created_at); 
     }
   };
+  outputText();
 }
 //OMDB Logic
 if(argument === "movie-this"){ 
@@ -36,6 +39,7 @@ if(argument === "movie-this"){
             })
         }
     })
+    outputText();
 }
 // Spotify Logic
 if(argument === "spotify-this-song"){
@@ -66,19 +70,23 @@ if(argument === "spotify-this-song"){
             });
         }
     });
+    outputText();
 }
 //Read Text File Logic
 if(argument === "do-what-it-says"){
     fs.readFile('random.txt', "utf8", function(err, data){
-            // data = data.split(', ');
-
-            for (var i = 0; i < data.length; i++){
-                
-            }
-
-            console.log(data);
-        });
+        for (var i = 0; i < data.length; i++){
+            
+        }
+        console.log(data);
+        console.log(process.argv)
+    });
+    outputText();
+}   
+function outputText(){
+    fs.appendFile('log.txt', 'Argument: ' + argument + '. Movie or Song Title: ' + value + '. Movie or Song info: ' + dataText + '.'); 
 }
+
                     
                 
 
