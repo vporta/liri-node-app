@@ -33,13 +33,15 @@ if(argument === "movie-this"){
         
         if(process.argv[3]){
         console.log(body);  
+       
         }else{
             request("http://www.omdbapi.com/?t=mr+nobody+&y=&plot=short&r=json&tomatoes=true",function(error, response,body){
                 console.log(body);
+            
             })
         }
     })
-    outputText();
+    // outputText();
 }
 // Spotify Logic
 if(argument === "spotify-this-song"){
@@ -75,11 +77,7 @@ if(argument === "spotify-this-song"){
 //Read Text File Logic
 if(argument === "do-what-it-says"){
     fs.readFile('random.txt', "utf8", function(err, data){
-        for (var i = 0; i < data.length; i++){
-            
-        }
         console.log(data);
-        console.log(process.argv)
     });
     outputText();
 }   
